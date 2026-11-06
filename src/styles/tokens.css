@@ -1,0 +1,62 @@
+:root {
+  /* Color Palette */
+  --color-red: #e74c33;
+  --color-blue: #3498db;
+  --color-dark-grey: #555;
+  --color-light-grey: #f0f0f0;
+  --color-heavy-grey: #f9f9f9;
+  --color-heavy-green: #298069;
+  --color-light-green: #2ecc71;
+  --color-black: #000;
+  --color-white: #fff;
+
+  /* TYPOGRAPHY */
+  --font-xs: clamp(0.5rem, 0.5vw, 0.75rem);
+  --font-sm: clamp(0.875rem, 1.125vw, 1.125rem);
+  --font-bs: clamp(1rem, 1.25vw, 1.25rem);
+  --font-md: clamp(1.25rem, 1.4vw, 1.4rem);
+  --font-lg: clamp(1.75rem, 1.75vw, 2rem);
+  --font-xl: clamp(2rem, 2.5vw, 3rem);
+  --font-2xl: clamp(3rem, 3.5vw, 4rem);
+  --font-3xl: clamp(4rem, 4.5vw, 5rem);
+  --font-4xl: clamp(5rem, 5.5vw, 6rem);
+
+  /* FONT WEIGHT */
+  --font-thin: 500;
+  --font-normal: 600;
+  --font-bold: 700;
+  --font-bolder: 800;
+  --font-black: 900;
+
+  /* Radius */
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.25rem;
+  --radius-bs: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+
+  /* BOX SHADOW */
+  --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.01);
+  --shadow-md: 0 2px 4px rgb(0 0 0 / 0.03);
+  --shadow-lg: 0 4px 8px rgb(0 0 0 / 0.03);
+  --shadow-xl: 0 8px 12px rgb(0 0 0 / 0.05);
+  --shadow-2xl: 0 12px 24px rgb(0 0 0 / 0.03);
+
+  /* PADDING */
+  --padding-sm: 0.25rem;
+  --padding-bs: 0.5rem;
+  --padding-md: 0.75rem;
+  --padding-lg: 1rem;
+  --padding-xl: 1.25rem;
+  --padding-2xl: 1.5rem;
+  --padding-3xl: 2.5rem;
+
+  /* SPACING */
+  --spacing-sm: 0.5rem;
+  --spacing-bs: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 2.5rem;
+  --spacing-3xl: 3rem;
+}

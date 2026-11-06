@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charest="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Registration</title>
+    <meta
+      name="description"
+      content="validate your registration info in elegant and simple way"
+    />
+    <meta name="keywords" content="HTML5 | CSS3 | JS | Form Validation" />
+    <meta name="author" content="Muhammed Soliman" />
+    <link
+      rel="canonical"
+      href="https://mohammed-soliman144.github.io/Form-Registration"
+    />
+    <link rel="stylesheet" href="./src/styles/globals.css" />
+    <script type="module" src="./src/js/main.js"></script>
+  </head>
+  <body>
+    <main class="main">
+      <div class="container">
+        <h1 id="heading-title" class="main__heading">Form Registration</h1>
+        <form
+          action="/submit"
+          method="POST"
+          aria-labelledby="heading-title"
+          class="main__form"
+          novalidate
+        >
+          <div class="form__group">
+            <label for="user" class="form__label label">username: </label>
+            <input
+              class="form__input"
+              type="text"
+              name="user"
+              id="user"
+              minlength="6"
+              maxlength="20"
+              placeholder="enter username"
+              autocomplete="off"
+              required
+            />
+            <p class="form__message"></p>
+          </div>
+          <div class="form__group">
+            <label for="email" class="form__label label">email: </label>
+            <input
+              class="form__input"
+              type="email"
+              name="email"
+              id="email"
+              placeholder="enter email"
+              autocomplete="off"
+              required
+            />
+            <p class="form__message"></p>
+          </div>
+          <div class="form__group">
+            <label for="password" class="form__label label">password: </label>
+            <input
+              class="form__input"
+              type="password"
+              name="password"
+              id="password"
+              minlength="6"
+              maxlength="24"
+              placeholder="enter password"
+              autocomplete="off"
+              required
+            />
+            <p class="form__message"></p>
+          </div>
+          <div class="form__group">
+            <label for="confirm" class="form__label label"
+              >confirm password:
+            </label>
+            <input
+              class="form__input"
+              type="password"
+              name="confirm"
+              id="confirm"
+              minlength="6"
+              maxlength="24"
+              placeholder="confirm password"
+              autocomplete="off"
+              required
+            />
+            <p class="form__message"></p>
+          </div>
+          <div class="form__controls">
+            <button class="form__button button" type="submit">register</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
