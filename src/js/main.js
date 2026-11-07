@@ -1,11 +1,9 @@
-import { form, userInput, emailInput, passwordInputs, messages } from "./selectors.js";
+const form = document.querySelector("form.main__form")
 
 const STORAGE_KEY = "USER_INFO"
 
-
 // HandleSubmit
 form.addEventListener("submit", handleSubmit)
-
 
 function handleSubmit(e) {
     e.preventDefault()
@@ -20,43 +18,53 @@ function handleSubmit(e) {
 
     for(const {id, name, value, type, minLength, maxLength} of inputs) {
         if(type !== "submit" && !value) {
-            isValid &&= !!value
-            showError(id, `${formatInput(name)} is required`, !!value)
+            let result = !!value
+            !result ? showError(id, `${formatInput(name)} is required`, result) : hideError(id, result)
+            isValid &&= result
         }
         else if(type === "email") {
             let result = isValidEmail(value)
-            !isValidEmail(value) ?  showError(id, `${formatInput(name)} is Invalid`, result) : ""
+            !result ?  showError(id, `${formatInput(name)} is Invalid`, result) : hideError(id, result)
             isValid &&= result
-        } else if(type === "text") {
-            let result = 
-            !isValidInput(value, minLength, maxLength) ?  showError(id, `${formatInput(name)} must length in range of ${minLength} and ${maxLength} characters`, isValidEmail(value)) : ""
-            isValid &&= isValidEmail(value)
-        } else if (name === "password") {
+        } else if(type === "text" && value) {
+            let result = isValidInput(value, minLength, maxLength)
+            !result ?  showError(id, `${formatInput(name)} must length in range of ${minLength} and ${maxLength} characters`, result) : hideError(id, result)
+            isValid &&= result
+        } else if (name === "password" && value) {
             userAuth = {
                 ...userAuth,
                 password: value,
             }
-            !isValidInput(value, minLength, maxLength) ?  showError(id, `${formatInput(name)} must length in range of ${minLength} and ${maxLength} characters`) : ""
-        } else if (name === "confirm") {
+            let result = isValidInput(value, minLength, maxLength)
+            !result ?  showError(id, `${formatInput(name)} must length in range of ${minLength} and ${maxLength} characters`, result) : hideError(id, result)
+            isValid &&= result
+            if(!result) 
+                return
+        } else if (name === "confirm" && value) {
             userAuth = {
                 ...userAuth,
                 confirm: value,
             }
             if(userAuth.password && userAuth.confirm) {
-                showError("password", `${formatInput("password")} is not matched`)
-                showError("confirm", `${formatInput("confirm")} is not matched`)
-                isValid &&= isPassMatch(userAuth.password, userAuth.confirm)
+                let result = isPassMatch(userAuth.password, userAuth.confirm) && isValidInput(value, minLength, maxLength)
+                !result? showError("password", `${formatInput("password")} is not matched`, result) : hideError("password", result)
+                !result? showError("confirm", `${formatInput("confirm")} is not matched`, result) : hideError("confirm", result)
+                isValid &&= result
             }
         }
     }
-    
-    console.log(isPassMatch(password, confirm))
 
-    console.log(userAuth)
-
+    if(!isValid) return
+    const {user, password, email} = form.elements
+    const userInfo = {
+        id: Date.now(),
+        username: user.value,
+        password: password.value,
+        email: email.value
+    }
+    addToLocalStorage(userInfo)
+    e.target.reset()
 }
-
-
 
 function getInputArray(formElements = {}) {
     if(!Object.keys(formElements).length) return
@@ -66,8 +74,6 @@ function getInputArray(formElements = {}) {
     }        
     return inputs
 }
-
-
 
 function isValidEmail(email = "") {
     let isValid = true
@@ -89,36 +95,41 @@ function isPassMatch(pass = "", confirm = "") {
 }
 
 
-function showError(id, message, isValid) {
+function showError(id, message) {
     const element = document.getElementById(id) ?? ""
     const nextElement = element.nextElementSibling ?? ""
-    if(!element) return
-    if((element.classList.contains("invalid") || nextElement.classList.contains("invalid")) && isValid) {
-        element.classList?.remove("invalid")
-        nextElement.classList?.remove("invalid")
-        nextElement.textContent = ""
-        return
-    }    
+    if(!element) return  
     element.classList?.add("invalid")
     nextElement.classList?.add("invalid")
     nextElement.textContent = message
 }
 
+function hideError(id, isValid) {
+    const element = document.getElementById(id) ?? ""
+    const nextElement = element.nextElementSibling ?? ""
+    if(!element) return
+    if((element.classList.contains("invalid") || nextElement.classList.contains("invalid")) && isValid) {
+        console.log(isValid)
+        element.classList?.remove("invalid")
+        nextElement.classList?.remove("invalid")
+        nextElement.textContent = ""
+    }
+}
 
 function addToLocalStorage(userInfo = {}) {
     if(typeof window === "undefined" || !Object.keys(userInfo).length) return
-    const storageItem = localStorage.getItem(STORAGE_KEY) ?? []
+    const storageItem = JSON.parse(localStorage.getItem(STORAGE_KEY)) ?? []
     const isUserExist = storageItem.filter(usr => usr.email === userInfo.email).length ? true : false
     if(isUserExist) return
-    localStorage.setItem(STORAGE_KEY, [
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([
         ...storageItem,
         userInfo
-    ])
+    ]))
 }
-
 
 function formatInput(inputName = "") {
     return inputName ? inputName.charAt(0).toUpperCase().concat(inputName.slice(1)) : ""
 }
+
 
 
