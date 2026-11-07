@@ -63,7 +63,7 @@ function handleSubmit(e) {
         email: email.value
     }
     addToLocalStorage(userInfo)
-    e.target.reset()
+    resetForm(e)
 }
 
 function getInputArray(formElements = {}) {
@@ -107,13 +107,11 @@ function showError(id, message) {
 function hideError(id, isValid) {
     const element = document.getElementById(id) ?? ""
     const nextElement = element.nextElementSibling ?? ""
-    if(!element) return
-    if((element.classList.contains("invalid") || nextElement.classList.contains("invalid")) && isValid) {
-        console.log(isValid)
-        element.classList?.remove("invalid")
-        nextElement.classList?.remove("invalid")
-        nextElement.textContent = ""
-    }
+    if(!element || !isValid) return
+    element.classList?.remove("invalid")
+    nextElement.classList?.remove("invalid")
+    nextElement.textContent = ""
+    element.classList.add("valid")
 }
 
 function addToLocalStorage(userInfo = {}) {
@@ -132,4 +130,10 @@ function formatInput(inputName = "") {
 }
 
 
+function resetForm(e) {
+    const inputs = e.target.elements
+    for(const input of inputs) 
+        input.classList.remove("valid")
+    e.target.reset()
+}
 

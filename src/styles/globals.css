@@ -120,7 +120,7 @@ body {
 }
 
 .form__input.valid {
-  border-color: var(--color-green);
+  border-color: var(--color-light-green);
 }
 
 .form__input.invalid {
